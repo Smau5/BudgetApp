@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetApp.API", "BudgetApp.API\BudgetApp.API.csproj", "{5C2BEC50-C603-4685-84F9-221091DA168F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetApp.Core", "BudgetApp.Core\BudgetApp.Core.csproj", "{827BC83F-4527-4D7E-BAE2-A41A89C5768C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BudgetApp.Infrastructure", "BudgetApp.Infrastructure\BudgetApp.Infrastructure.csproj", "{564FB4AF-00FC-4E3E-96D2-A458A18D127A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C2BEC50-C603-4685-84F9-221091DA168F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2BEC50-C603-4685-84F9-221091DA168F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2BEC50-C603-4685-84F9-221091DA168F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2BEC50-C603-4685-84F9-221091DA168F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{827BC83F-4527-4D7E-BAE2-A41A89C5768C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{827BC83F-4527-4D7E-BAE2-A41A89C5768C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{827BC83F-4527-4D7E-BAE2-A41A89C5768C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{827BC83F-4527-4D7E-BAE2-A41A89C5768C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{564FB4AF-00FC-4E3E-96D2-A458A18D127A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{564FB4AF-00FC-4E3E-96D2-A458A18D127A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{564FB4AF-00FC-4E3E-96D2-A458A18D127A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{564FB4AF-00FC-4E3E-96D2-A458A18D127A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
