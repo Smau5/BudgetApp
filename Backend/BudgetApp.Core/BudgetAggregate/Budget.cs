@@ -1,17 +1,15 @@
-using BudgetApp.Core.EFEntities;
+using BudgetApp.Core.Shared;
 
 namespace BudgetApp.Core.BudgetAggregate;
 
 public class Budget : BaseEntity<Guid>
 {
-    private readonly List<CategoryGroup> _categories = new List<CategoryGroup>();
-    public IEnumerable<CategoryGroup> Categories => _categories.AsReadOnly();
-    public decimal AvailableAmount { get; private set; }
-    public string Name { get; set; } = string.Empty;
+    public Decimal AvailableToAssign { get; set; } = decimal.Zero;
+    public List<Category> Categories { get; set; } = new();
 
-    public CategoryGroup AddNewCategoryGroup(CategoryGroup category)
+    public Category AddCategory(Category category)
     {
-        _categories.Add(category);
+        Categories.Add(category);
         return category;
     }
 }

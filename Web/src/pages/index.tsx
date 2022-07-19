@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
+import Budget from "../components/Budget";
 
 const Home: NextPage = () => {
-  return <div>chau</div>;
+  return <Budget></Budget>;
 };
 
 export default Home;

@@ -6,5 +6,9 @@ interface Props {
 }
 
 export default function Layout({ children }: Props) {
-  return <Box>{children}</Box>;
+  return (
+    <Box h={"100vh"} w={"100vw"}>
+      {children}
+    </Box>
+  );
 }

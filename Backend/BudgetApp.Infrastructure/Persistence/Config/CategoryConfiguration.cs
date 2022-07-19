@@ -8,8 +8,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)
     {
-        builder.Property(b => b.AvailableAmount).HasPrecision(ColumnConstants.PRECISION, ColumnConstants.SCALE);
-        builder.Property(b => b.AssignedAmount).HasPrecision(ColumnConstants.PRECISION, ColumnConstants.SCALE);
-        builder.Property(p => p.Id).ValueGeneratedNever();
+        builder.Property(c => c.Assigned).HasPrecision(12, 2);
+        builder.Property(c => c.AvailableToSpend).HasPrecision(12, 2);
     }
 }

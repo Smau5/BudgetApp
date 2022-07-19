@@ -1,0 +1,15 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:14-alpine
+    user: root
+    volumes:
+      - postgresvol:/var/opt/psql
+    environment:
+      - POSTGRES_DB=budgetAppDb
+      - POSTGRES_USER=budgetAppUser
+      - POSTGRES_PASSWORD=budgetAppPassword
+    ports:
+      - "5555:5432"
+volumes:
+  postgresvol:

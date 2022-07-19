@@ -1,3 +1,4 @@
+using BudgetApp.Core.BudgetAggregate;
 using BudgetApp.Core.TransactionAggregate;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -8,7 +9,8 @@ public class TransactionConfiguration : IEntityTypeConfiguration<Transaction>
 {
     public void Configure(EntityTypeBuilder<Transaction> builder)
     {
-        builder.Property(b => b.Amount).HasPrecision(ColumnConstants.PRECISION, ColumnConstants.SCALE);
-        builder.Property(p => p.Id).ValueGeneratedNever();
+        builder.Property(c => c.Amount).HasPrecision(12, 2);
+        builder.HasOne<Budget>().WithMany().HasForeignKey(t => t.BudgetId);
+        builder.HasOne<Category>().WithMany().HasForeignKey(t => t.CategoryId);
     }
 }

@@ -13,17 +13,20 @@ public class AppDbContext : DbContext
     {
     }
 
-    public DbSet<Budget> Budgets => Set<Budget>();
     public DbSet<Transaction> Transactions => Set<Transaction>();
     public DbSet<Category> Categories => Set<Category>();
-    public DbSet<CategoryGroup> CategoryGroups => Set<CategoryGroup>();
+    public DbSet<Budget> Budgets => Set<Budget>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        new BudgetConfiguration().Configure(modelBuilder.Entity<Budget>());
-        new CategoryConfiguration().Configure(modelBuilder.Entity<Category>());
-        new CategoryGroupConfiguration().Configure(modelBuilder.Entity<CategoryGroup>());
         new TransactionConfiguration().Configure(modelBuilder.Entity<Transaction>());
+        new CategoryConfiguration().Configure(modelBuilder.Entity<Category>());
+        new BudgetConfiguration().Configure(modelBuilder.Entity<Budget>());
+    }
+
+    public override int SaveChanges()
+    {
+        return SaveChangesAsync().GetAwaiter().GetResult();
     }
 }

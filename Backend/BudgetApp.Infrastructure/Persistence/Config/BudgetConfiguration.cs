@@ -8,7 +8,7 @@ public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
 {
     public void Configure(EntityTypeBuilder<Budget> builder)
     {
-        builder.Property(b => b.AvailableAmount).HasPrecision(ColumnConstants.PRECISION, ColumnConstants.SCALE);
-        builder.Property(p => p.Id).ValueGeneratedNever();
+        builder.Property(c => c.AvailableToAssign).HasPrecision(12, 2);
+        builder.Navigation(c => c.Categories).AutoInclude();
     }
 }
