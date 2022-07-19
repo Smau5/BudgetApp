@@ -10,6 +10,7 @@ public class Budget : BaseEntity<Guid>
     public Category AddCategory(Category category)
     {
         Categories.Add(category);
+        AvailableToAssign -= category.Assigned;
         return category;
     }
 }

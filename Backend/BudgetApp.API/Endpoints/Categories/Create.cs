@@ -36,12 +36,7 @@ public class Create : EndpointBaseAsync.WithRequest<CreateCategoriesRequest>.Wit
             return BadRequest("Budget doesn't exist");
         }
 
-        var newCategory = new Category
-        {
-            Name = request.Name,
-            Assigned = request.Assigned,
-            AvailableToSpend = request.Available
-        };
+        var newCategory = new Category(request.Name, request.Assigned);
 
         budget.AddCategory(newCategory);
         _budgetRepository.Update(budget);

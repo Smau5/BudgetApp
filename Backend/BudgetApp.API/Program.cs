@@ -1,6 +1,8 @@
 using BudgetApp.Core.Interfaces;
+using BudgetApp.Core.TransactionAggregate;
 using BudgetApp.Infrastructure.Persistence;
 using BudgetApp.Infrastructure.Persistence.Repositories;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Npgsql;
@@ -50,6 +52,13 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
+var assemblies = new[]
+{
+    typeof(Program).Assembly,
+    typeof(AppDbContext).Assembly,
+    typeof(Transaction).Assembly
+};
+builder.Services.AddMediatR(assemblies);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
