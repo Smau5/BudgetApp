@@ -37,6 +37,7 @@ public class UpdateBudgetAfterTransactionCreated : INotificationHandler<Transact
             }
 
             category.AvailableToSpend += createdTransaction.Amount;
+            category.Activity += createdTransaction.Amount;
         }
 
         _budgetRepository.Update(budget);
