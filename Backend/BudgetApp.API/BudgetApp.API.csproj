@@ -24,8 +24,4 @@
       <ProjectReference Include="..\BudgetApp.Infrastructure\BudgetApp.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Endpoints\Transactions" />
-    </ItemGroup>
-
 </Project>

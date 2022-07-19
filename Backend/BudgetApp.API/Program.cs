@@ -48,6 +48,7 @@ builder.Services.AddDbContext<AppDbContext>(builderOptions =>
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<IBudgetRepository, BudgetRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 var app = builder.Build();
 

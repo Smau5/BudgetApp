@@ -8,8 +8,8 @@ public class Test : EndpointBaseAsync.WithoutRequest.WithoutResult
 {
     [AllowAnonymous]
     [HttpGet("/test")]
-    public override async Task<ActionResult> HandleAsync(CancellationToken cancellationToken = new())
+    public override Task<ActionResult> HandleAsync(CancellationToken cancellationToken = new())
     {
-        return Ok("Working!");
+        return Task.FromResult<ActionResult>(Ok("Working!"));
     }
 }
