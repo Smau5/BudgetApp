@@ -31,10 +31,7 @@ public class Create : EndpointBaseAsync.WithRequest<CreateBudgetsRequest>.WithAc
     public override async Task<ActionResult<BudgetDto>> HandleAsync(CreateBudgetsRequest request,
         CancellationToken cancellationToken = new())
     {
-        var newBudget = new Budget()
-        {
-            AvailableToAssign = request.AvailableToAssign
-        };
+        var newBudget = new Budget(request.AvailableToSpend);
 
         var budget = await _budgetRepository.GetFirstOrDefaultAsync(cancellationToken);
         if (budget is not null)
