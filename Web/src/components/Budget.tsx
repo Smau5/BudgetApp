@@ -1,13 +1,12 @@
-import { Box, Flex } from "@chakra-ui/react";
-import { useState } from "react";
+import {Box} from "@chakra-ui/react";
 
-export default function Budget() {
-  const [budget, setBudget] = useState();
-
+const Budget = () => {
   return (
-    <Flex flexDir={"column"} h={"100%"}>
-      <Box h={"70px"}>header</Box>
-      <Box flex={1}></Box>
-    </Flex>
-  );
+    <>
+      <Box bg="#e3e3e3" h="80px">Header</Box>
+      <Box h="100%">Main</Box>
+    </>
+  )
 }
+
+export default Budget;

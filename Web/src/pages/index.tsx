@@ -1,8 +1,10 @@
-import type { NextPage } from "next";
-import Budget from "../components/Budget";
+import type {NextPage} from 'next'
+import Budget from "../components/budget";
 
 const Home: NextPage = () => {
-  return <Budget></Budget>;
-};
+  return (
+    <Budget></Budget>
+  )
+}
 
-export default Home;
+export default Home

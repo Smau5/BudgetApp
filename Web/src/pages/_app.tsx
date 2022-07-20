@@ -1,22 +1,15 @@
-import "../../styles/globals.css";
-import type {AppProps} from "next/app";
-import {ChakraProvider, ColorModeProvider} from "@chakra-ui/react";
-import Layout from "../components/Layout";
+import '../../styles/globals.css'
+import type {AppProps} from 'next/app'
+import {Box, ChakraProvider} from '@chakra-ui/react'
 
 function MyApp({Component, pageProps}: AppProps) {
   return (
     <ChakraProvider>
-      <ColorModeProvider
-        options={{
-          useSystemColorMode: true,
-        }}
-      >
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ColorModeProvider>
+      <Box minH="100vh">
+        <Component {...pageProps} />
+      </Box>
     </ChakraProvider>
-  );
+  )
 }
 
 export default MyApp
