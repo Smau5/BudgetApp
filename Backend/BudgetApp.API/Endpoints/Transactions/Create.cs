@@ -21,12 +21,12 @@ public class Create : EndpointBaseAsync.WithRequest<CreateTransactionsRequest>.W
         _budgetRepository = budgetRepository;
     }
 
-    [HttpPost("/Transactions")]
+    [HttpPost("/transactions")]
     [SwaggerOperation(
         Summary = "Create transactions",
         Description = "Create transactions",
-        OperationId = "Transactions.Create",
-        Tags = new[] { "Transactions" })
+        OperationId = "transactions.create",
+        Tags = new[] { "transactions" })
     ]
     public override async Task<ActionResult<TransactionDto>> HandleAsync(CreateTransactionsRequest request,
         CancellationToken cancellationToken = new())

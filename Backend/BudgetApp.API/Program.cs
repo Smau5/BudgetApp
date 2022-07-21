@@ -6,6 +6,7 @@ using BudgetApp.Infrastructure.Persistence;
 using BudgetApp.Infrastructure.Persistence.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -31,10 +32,7 @@ builder.Services.AddSwaggerGen(c =>
         {
             Implicit = new OpenApiOAuthFlow
             {
-                Scopes = new Dictionary<string, string>
-                {
-                    { "all", "all" }
-                },
+                Scopes = new Dictionary<string, string>(),
                 AuthorizationUrl = new Uri(builder.Configuration["Auth0:Domain"] + "authorize?audience=" +
                                            builder.Configuration["Auth0:Audience"])
             }
@@ -97,7 +95,21 @@ builder.Services.AddAuthentication(options =>
             NameClaimType = ClaimTypes.NameIdentifier
         };
     });
+
 var app = builder.Build();
+
+if (app.Environment.IsProduction())
+{
+    app.UseCors(policyBuilder =>
+    {
+        // TODO: update url 
+        policyBuilder.WithOrigins(
+            "https://budgetapp.com",
+            "https://*.budgetapp.com",
+            "https://www.budgetapp.com"
+        ).AllowAnyHeader().AllowAnyMethod();
+    });
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -108,6 +120,7 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API");
         c.OAuthClientId(builder.Configuration["Auth0:ClientId"]);
     });
+    app.UseCors(policyBuilder => { policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod(); });
 }
 
 app.UseHttpsRedirection();

@@ -20,12 +20,12 @@ public class Create : EndpointBaseAsync.WithRequest<CreateCategoriesRequest>.Wit
         _budgetRepository = budgetRepository;
     }
 
-    [HttpPost("/Categories")]
+    [HttpPost("/categories")]
     [SwaggerOperation(
         Summary = "Create category",
         Description = "Create category",
-        OperationId = "Category.Create",
-        Tags = new[] { "Categories" })
+        OperationId = "category.create",
+        Tags = new[] { "categories" })
     ]
     public override async Task<ActionResult<CategoryDto>> HandleAsync(CreateCategoriesRequest request,
         CancellationToken cancellationToken = new())

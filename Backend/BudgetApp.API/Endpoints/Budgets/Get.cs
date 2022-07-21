@@ -3,6 +3,7 @@ using AutoMapper;
 using BudgetApp.API.Dto;
 using BudgetApp.Core.Interfaces;
 using BudgetApp.Infrastructure.Persistence;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -19,12 +20,12 @@ public class Get : EndpointBaseAsync.WithoutRequest.WithActionResult<BudgetDto>
         _mapper = mapper;
     }
 
-    [HttpGet("/Budgets")]
+    [HttpGet("/budgets")]
     [SwaggerOperation(
         Summary = "Get budget",
         Description = "Get budget",
-        OperationId = "Budgets.Get",
-        Tags = new[] { "Budgets" })
+        OperationId = "budgets.get",
+        Tags = new[] { "budgets" })
     ]
     public override async Task<ActionResult<BudgetDto>> HandleAsync(
         CancellationToken cancellationToken = new())

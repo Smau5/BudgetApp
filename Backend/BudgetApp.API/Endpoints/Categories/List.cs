@@ -21,12 +21,12 @@ public class List : EndpointBaseAsync.WithoutRequest.WithActionResult<List<Categ
         _mapper = mapper;
     }
 
-    [HttpGet("/Categories")]
+    [HttpGet("/categories")]
     [SwaggerOperation(
         Summary = "Create categories",
         Description = "Create categories",
-        OperationId = "Categories.Create",
-        Tags = new[] { "Categories" })
+        OperationId = "categories.create",
+        Tags = new[] { "categories" })
     ]
     public override async Task<ActionResult<List<CategoryDto>>> HandleAsync(CancellationToken cancellationToken = new())
     {
