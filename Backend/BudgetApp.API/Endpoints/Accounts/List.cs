@@ -6,9 +6,9 @@ using BudgetApp.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace BudgetApp.API.Endpoints.Categories;
+namespace BudgetApp.API.Endpoints.Accounts;
 
-public class List : EndpointBaseAsync.WithoutRequest.WithActionResult<List<CategoryDto>>
+public class List : EndpointBaseAsync.WithoutRequest.WithActionResult<List<AccountDto>>
 {
     private readonly IBudgetRepository _budgetRepository;
     private readonly IMapper _mapper;
@@ -19,14 +19,15 @@ public class List : EndpointBaseAsync.WithoutRequest.WithActionResult<List<Categ
         _mapper = mapper;
     }
 
-    [HttpGet("/categories")]
+    [HttpGet("/accounts")]
     [SwaggerOperation(
-        Summary = "Create categories",
-        Description = "Create categories",
-        OperationId = "categories.list",
-        Tags = new[] { "categories" })
+        Summary = "List accounts",
+        Description = "List accounts",
+        OperationId = "accounts.list",
+        Tags = new[] { "accounts" })
     ]
-    public override async Task<ActionResult<List<CategoryDto>>> HandleAsync(CancellationToken cancellationToken = new())
+    public override async Task<ActionResult<List<AccountDto>>> HandleAsync(
+        CancellationToken cancellationToken = new())
     {
         var budget = await _budgetRepository.GetFirstOrDefaultAsync(cancellationToken);
         if (budget is null)
@@ -34,7 +35,7 @@ public class List : EndpointBaseAsync.WithoutRequest.WithActionResult<List<Categ
             return BadRequest();
         }
 
-        var response = _mapper.Map<List<CategoryDto>>(budget.Categories);
+        var response = _mapper.Map<List<AccountDto>>(budget.Accounts);
         return Ok(response);
     }
 }
