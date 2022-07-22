@@ -10,14 +10,6 @@ const ApiClient = () => {
   };
 
   const instance = axios.create(defaultOptions);
-
-  // instance.interceptors.request.use(async (request) => {
-  //   if (options?.accessToken) {
-  //     request.headers!.Authorization = `Bearer ${options.accessToken}`;
-  //   }
-  //   return request;
-  // });
-
   return instance;
 };
 
