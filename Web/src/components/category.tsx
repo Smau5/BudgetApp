@@ -5,7 +5,13 @@ interface Props {
 }
 const Category = ({ category }: Props) => {
   return (
-    <Flex borderBottom="solid 1px" borderColor="#dedede">
+    <Flex
+      borderBottom="solid 1px"
+      borderColor="#dedede"
+      h="30px"
+      alignItems="center"
+      p="5px"
+    >
       <Box flex="2">
         <Text>{category.name}</Text>
       </Box>

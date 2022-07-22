@@ -1,20 +1,27 @@
-import type {NextPage} from 'next'
-import Budget from "../components/budget";
-import {useUser} from "@auth0/nextjs-auth0";
+import type { NextPage } from "next";
+import {useUser, withPageAuthRequired} from "@auth0/nextjs-auth0";
+import { useQuery } from "@tanstack/react-query";
+import getBudget from "../http/budgets/get";
+import { Box } from "@chakra-ui/react";
+import CategoriesContainer from "../components/categories-container";
 
-const Home: NextPage = () => {
-  const {user, error, isLoading} = useUser();
+const Budget: NextPage = () => {
+  const { data } = useQuery(["budgets"], getBudget);
+  const budget = data?.data ?? null;
 
-  if (!user) {
-    return <a href="/api/auth/login">Login</a>;
-  }
-
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
   return (
-    <Budget></Budget>
-  )
-}
+    <>
+      <Box bg="#e3e3e3" h="80px">
+        To budget:
+        {budget?.availableToAssign}
+      </Box>
+      <Box h="100%">
+        <CategoriesContainer />
+      </Box>
+    </>
+  );
+};
 
-export default Home
+export default Budget;
+
+export const getServerSideProps = withPageAuthRequired();

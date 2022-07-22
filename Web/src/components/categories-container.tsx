@@ -19,6 +19,7 @@ const CategoriesContainer = () => {
         borderBottom="solid 1px"
         borderTop="solid 1px"
         borderColor="#dedede"
+        p="5px"
       >
         <Box flex="2">
           <Text>Category</Text>
