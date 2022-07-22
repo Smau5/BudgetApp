@@ -16,7 +16,7 @@ const Home: NextPage = () => {
 
       const res = await ApiClient().get("/budgets");
     } catch (e) {
-      // console.log(e)
+      console.log(e)
 
     }
   }
