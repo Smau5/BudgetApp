@@ -1,6 +1,5 @@
 import { Box } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import getBudget from "../http/budgets/get";
 import CategoriesContainer from "./categories-container";
 

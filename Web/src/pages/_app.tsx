@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import { UserProvider } from "@auth0/nextjs-auth0";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Layout from "../layouts/layout";
 
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
@@ -10,9 +11,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <ChakraProvider>
-          <Box minH="100vh">
+          <Layout>
             <Component {...pageProps} />
-          </Box>
+          </Layout>
         </ChakraProvider>
       </UserProvider>
     </QueryClientProvider>
