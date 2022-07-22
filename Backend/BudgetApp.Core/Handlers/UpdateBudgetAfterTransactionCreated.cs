@@ -38,6 +38,14 @@ public class UpdateBudgetAfterTransactionCreated : INotificationHandler<Transact
 
             category.AvailableToSpend += createdTransaction.Amount;
             category.Activity += createdTransaction.Amount;
+            
+            var account = budget.Accounts.FirstOrDefault(c => c.Id == createdTransaction.AccountId);
+            if (account is null)
+            {
+                throw new ArgumentException("Account doesn't exist");
+            }
+
+            account.AvailableToSpend += createdTransaction.Amount;
         }
 
         budget.AvailableToSpend += createdTransaction.Amount;

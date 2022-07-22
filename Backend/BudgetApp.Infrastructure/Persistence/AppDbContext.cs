@@ -22,15 +22,18 @@ public class AppDbContext : DbContext
     public DbSet<Category> Categories => Set<Category>();
     public DbSet<Budget> Budgets => Set<Budget>();
 
+    public DbSet<Account> Accounts => Set<Account>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
         new TransactionConfiguration().Configure(modelBuilder.Entity<Transaction>());
         new CategoryConfiguration().Configure(modelBuilder.Entity<Category>());
         new BudgetConfiguration().Configure(modelBuilder.Entity<Budget>());
+        new AccountConfiguration().Configure(modelBuilder.Entity<Account>());
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
         var entitiesWithEvents = ChangeTracker
             .Entries()

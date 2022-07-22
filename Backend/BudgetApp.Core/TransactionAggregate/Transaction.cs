@@ -9,14 +9,16 @@ public class Transaction : BaseEntity<Guid>
     public DateTime DateTime { get; set; }
     public int? CategoryId { get; set; }
     public Guid BudgetId { get; set; }
+    public int AccountId { get; set; }
 
 
-    public Transaction(decimal amount, DateTime dateTime, Guid budgetId, int? categoryId)
+    public Transaction(decimal amount, DateTime dateTime, Guid budgetId, int accountId, int? categoryId)
     {
         Amount = amount;
         DateTime = dateTime;
         CategoryId = categoryId;
         BudgetId = budgetId;
+        AccountId = accountId;
 
         Events.Add(new TransactionCreatedEvent(this));
     }

@@ -37,7 +37,8 @@ public class Create : EndpointBaseAsync.WithRequest<CreateTransactionsRequest>.W
             return BadRequest("budget doesn't exist.");
         }
 
-        var newTransaction = new Transaction(request.Amount, DateTime.UtcNow, budget.Id, request.CategoryId);
+        var newTransaction =
+            new Transaction(request.Amount, DateTime.UtcNow, budget.Id, request.AccountId, request.CategoryId);
 
         _transactionRepository.Add(newTransaction);
         await _transactionRepository.SaveChangesAsync(cancellationToken);

@@ -10,5 +10,6 @@ public class BudgetConfiguration : IEntityTypeConfiguration<Budget>
     {
         builder.Property(c => c.AvailableToAssign).HasPrecision(12, 2);
         builder.Navigation(c => c.Categories).AutoInclude();
+        builder.Navigation(c => c.Accounts).AutoInclude();
     }
 }

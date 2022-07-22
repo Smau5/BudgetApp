@@ -3,14 +3,12 @@ using AutoMapper;
 using BudgetApp.API.Dto;
 using BudgetApp.Core.BudgetAggregate;
 using BudgetApp.Core.Interfaces;
-using BudgetApp.Infrastructure.Persistence;
-using BudgetApp.Infrastructure.Persistence.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace BudgetApp.API.Endpoints.Budgets;
+namespace BudgetApp.API.Endpoints.Accounts;
 
-public class Create : EndpointBaseAsync.WithRequest<CreateBudgetsRequest>.WithActionResult<BudgetDto>
+public class Create : EndpointBaseAsync.WithRequest<CreateAccountRequest>.WithActionResult<AccountDto>
 {
     private readonly IMapper _mapper;
     private readonly IBudgetRepository _budgetRepository;
@@ -21,29 +19,27 @@ public class Create : EndpointBaseAsync.WithRequest<CreateBudgetsRequest>.WithAc
         _budgetRepository = budgetRepository;
     }
 
-    [HttpPost("/budgets")]
+    [HttpPost("/accounts")]
     [SwaggerOperation(
-        Summary = "Create budgets",
-        Description = "Create budgets",
-        OperationId = "budgets.create",
-        Tags = new[] { "budgets" })
+        Summary = "Create account",
+        Description = "Create account",
+        OperationId = "account.create",
+        Tags = new[] { "accounts" })
     ]
-    public override async Task<ActionResult<BudgetDto>> HandleAsync(CreateBudgetsRequest request,
+    public override async Task<ActionResult<AccountDto>> HandleAsync(CreateAccountRequest request,
         CancellationToken cancellationToken = new())
     {
-        var newBudget = new Budget();
-
         var budget = await _budgetRepository.GetFirstOrDefaultAsync(cancellationToken);
-        if (budget is not null)
+        if (budget is null)
         {
-            return BadRequest("Only one budget allowed");
+            return BadRequest("Budget doesn't exist");
         }
 
-        _budgetRepository.Add(newBudget);
+        var newAccount = new Account(request.Name, request.AvailableToSpend);
+        budget.AddAccount(newAccount);
+        _budgetRepository.Update(budget);
         await _budgetRepository.SaveChangesAsync(cancellationToken);
-
-        var response = _mapper.Map<BudgetDto>(newBudget);
-
+        var response = _mapper.Map<AccountDto>(newAccount);
         return Ok(response);
     }
 }
