@@ -2,7 +2,6 @@ using Ardalis.ApiEndpoints;
 using AutoMapper;
 using BudgetApp.API.Dto;
 using BudgetApp.Core.Interfaces;
-using BudgetApp.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -30,10 +29,7 @@ public class List : EndpointBaseAsync.WithoutRequest.WithActionResult<List<Accou
         CancellationToken cancellationToken = new())
     {
         var budget = await _budgetRepository.GetFirstOrDefaultAsync(cancellationToken);
-        if (budget is null)
-        {
-            return BadRequest();
-        }
+        if (budget is null) return BadRequest();
 
         var response = _mapper.Map<List<AccountDto>>(budget.Accounts);
         return Ok(response);

@@ -1,7 +1,7 @@
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import listAccounts from "../http/accounts/list";
 import Link from "next/link";
+import listAccounts from "../http/accounts/list";
 
 const AccountsContainer = () => {
   const { data } = useQuery(["accounts"], listAccounts);
