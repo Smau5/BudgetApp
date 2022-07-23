@@ -7,4 +7,5 @@ public class TransactionDto
     public DateTime DateTime { get; set; }
     public int? CategoryId { get; set; }
     public Guid BudgetId { get; set; }
+    public int AccountId { get; set; }
 }

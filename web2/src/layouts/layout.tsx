@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import SidebarItem from "./sidebar-item";
+import AccountsContainer from "../components/accounts-container";
 interface Props {
   children: ReactNode;
 }
@@ -16,7 +17,7 @@ const Layout = ({ children }: Props) => {
         h="full"
       >
         <SidebarItem url="/budget" name="Budget" />
-        <SidebarItem url="/transactions" name="Transactions" />
+        <AccountsContainer></AccountsContainer>
       </Box>
       <Box bg="white" ml="230px" minHeight="100vh">
         {children}

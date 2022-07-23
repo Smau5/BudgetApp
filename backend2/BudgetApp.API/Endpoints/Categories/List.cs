@@ -21,8 +21,8 @@ public class List : EndpointBaseAsync.WithoutRequest.WithActionResult<List<Categ
 
     [HttpGet("/categories")]
     [SwaggerOperation(
-        Summary = "Create categories",
-        Description = "Create categories",
+        Summary = "List categories",
+        Description = "List categories",
         OperationId = "categories.list",
         Tags = new[] { "categories" })
     ]

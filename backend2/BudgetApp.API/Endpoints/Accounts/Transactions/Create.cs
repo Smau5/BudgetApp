@@ -6,7 +6,7 @@ using BudgetApp.Core.TransactionAggregate;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace BudgetApp.API.Endpoints.Transactions;
+namespace BudgetApp.API.Endpoints.Accounts.Transactions;
 
 public class Create : EndpointBaseAsync.WithRequest<CreateTransactionsRequest>.WithActionResult<TransactionDto>
 {
@@ -21,14 +21,14 @@ public class Create : EndpointBaseAsync.WithRequest<CreateTransactionsRequest>.W
         _budgetRepository = budgetRepository;
     }
 
-    [HttpPost("/transactions")]
+    [HttpPost("/accounts/{accountId}/transactions")]
     [SwaggerOperation(
         Summary = "Create transactions",
         Description = "Create transactions",
         OperationId = "transactions.create",
         Tags = new[] { "transactions" })
     ]
-    public override async Task<ActionResult<TransactionDto>> HandleAsync(CreateTransactionsRequest request,
+    public override async Task<ActionResult<TransactionDto>> HandleAsync([FromRoute] CreateTransactionsRequest request,
         CancellationToken cancellationToken = new())
     {
         var budget = await _budgetRepository.GetFirstOrDefaultAsync(cancellationToken);
@@ -38,7 +38,8 @@ public class Create : EndpointBaseAsync.WithRequest<CreateTransactionsRequest>.W
         }
 
         var newTransaction =
-            new Transaction(request.Amount, DateTime.UtcNow, budget.Id, request.AccountId, request.CategoryId);
+            new Transaction(request.CreateTransactionsRequestBody.Amount, DateTime.UtcNow, budget.Id, request.AccountId,
+                request.CreateTransactionsRequestBody.CategoryId);
 
         _transactionRepository.Add(newTransaction);
         await _transactionRepository.SaveChangesAsync(cancellationToken);
