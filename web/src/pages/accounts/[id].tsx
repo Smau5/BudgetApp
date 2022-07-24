@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import getBudget from "../../http/budgets/get";
 import listTransactions from "../../http/accounts/transactions/list";
+import dayjs from "dayjs";
 
 const AccountsId: NextPage = () => {
   const router = useRouter();
@@ -19,7 +20,29 @@ const AccountsId: NextPage = () => {
     }
   );
   const transactionsList = data?.data ?? null;
-  console.log(transactionsList);
+
+  const displayTransactionsList = transactionsList?.map((transaction) => {
+    return (
+      <Flex
+        borderBottom="solid 1px"
+        borderColor="#dedede"
+        h="30px"
+        alignItems="center"
+        p="5px"
+        key={transaction.id}
+      >
+        <Box flex="2">
+          <Text>{dayjs(transaction.dateTime).format("DD/MM/YYYY")}</Text>
+        </Box>
+        <Box flex="1">
+          <Text>{transaction.categoryId}</Text>
+        </Box>
+        <Box flex="1">
+          <Text>{transaction.amount}</Text>
+        </Box>
+      </Flex>
+    );
+  }) ?? <></>;
   return (
     <>
       <Box
@@ -30,6 +53,7 @@ const AccountsId: NextPage = () => {
       >
         {`test id: ${id}`}
       </Box>
+      {displayTransactionsList}
     </>
   );
 };

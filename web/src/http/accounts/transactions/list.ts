@@ -1,10 +1,9 @@
 import { AxiosResponse } from "axios";
-import { Category } from "../../dto/category";
 import apiClient from "../../../utils/api-client";
-import { Account } from "../../dto/account";
+import { Transaction } from "../../dto/transaction";
 
 export default async function listTransactions(
   accountId: string
-): Promise<AxiosResponse<Account[], any>> {
-  return apiClient().get<Account[]>(`accounts/${accountId}/transactions`);
+): Promise<AxiosResponse<Transaction[], any>> {
+  return apiClient().get<Transaction[]>(`accounts/${accountId}/transactions`);
 }
