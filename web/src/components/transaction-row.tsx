@@ -1,5 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
+import { useQuery } from "@tanstack/react-query";
+import listCategories from "../http/categories/list";
+import CategoryCombobox from "./category-combobox";
 
 interface Props {
   id: string;
@@ -7,7 +10,17 @@ interface Props {
   categoryId: number;
   amount: number;
 }
+
 const TransactionRow = ({ id, dateTime, categoryId, amount }: Props) => {
+  const categoriesQuery = useQuery(["categories"], listCategories);
+  const categoriesList = categoriesQuery?.data?.data ?? null;
+
+  const categoriesOptions = categoriesList?.map((category) => {
+    return {
+      value: category.id,
+      label: category.name,
+    };
+  });
   return (
     <Flex
       borderBottom="solid 1px"
@@ -21,7 +34,7 @@ const TransactionRow = ({ id, dateTime, categoryId, amount }: Props) => {
         <Text>{dayjs(dateTime).format("DD/MM/YYYY")}</Text>
       </Box>
       <Box flex="1">
-        <Text>{categoryId}</Text>
+        <CategoryCombobox initialSelectedId={categoryId.toString()} />
       </Box>
       <Box flex="1">
         <Text>{amount}</Text>

@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import listTransactions from "../../http/accounts/transactions/list";
-import TransactionRow from "../../components/TransactionRow";
+import TransactionRow from "../../components/transaction-row";
+import CategoryCombobox from "../../components/category-combobox";
 
 const AccountsId: NextPage = () => {
   const router = useRouter();
@@ -52,7 +53,7 @@ const AccountsId: NextPage = () => {
           <Text>Fecha</Text>
         </Box>
         <Box flex="1">
-          <Text>Categoria</Text>
+          <Text>Categoría</Text>
         </Box>
         <Box flex="1">
           <Text>Monto</Text>

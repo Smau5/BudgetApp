@@ -11,7 +11,7 @@ const Budget: NextPage = () => {
 
   return (
     <>
-      <Box bg="#e3e3e3" h="80px">
+      <Box bg="#f3fcff" h="80px">
         To budget:
         {budget?.availableToAssign}
       </Box>

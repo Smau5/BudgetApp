@@ -5,7 +5,13 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Layout from "../layouts/layout";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 20,
+    },
+  },
+});
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
