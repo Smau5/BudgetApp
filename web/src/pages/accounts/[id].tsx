@@ -1,11 +1,12 @@
 import { NextPage } from "next";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { useRouter } from "next/router";
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import listTransactions from "../../http/accounts/transactions/list";
 import TransactionRow from "../../components/transaction-row";
 import getAccount from "../../http/accounts/get";
+import { IoAddOutline } from "react-icons/io5";
 
 const AccountsId: NextPage = () => {
   const router = useRouter();
@@ -46,13 +47,23 @@ const AccountsId: NextPage = () => {
     <>
       <Box
         bg="#f3fcff"
-        h="120px"
         borderBottom="solid 1px"
         borderColor="#dedede"
         padding="15px"
       >
-        <Text fontSize={"30px"}>{account?.name}</Text>
-        <Text fontSize={"20px"}>{account?.availableToSpend}</Text>
+        <Box p={"10px"}>
+          <Text fontSize={"30px"}>{account?.name}</Text>
+          <Text fontSize={"20px"}>{account?.availableToSpend}</Text>
+        </Box>
+        <Box>
+          <Button
+            leftIcon={<IoAddOutline size={"20px"} />}
+            variant="ghost"
+            size={"sm"}
+          >
+            Agregar
+          </Button>
+        </Box>
       </Box>
       <Flex
         borderBottom="solid 1px"
