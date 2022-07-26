@@ -12,15 +12,6 @@ interface Props {
 }
 
 const TransactionRow = ({ id, dateTime, categoryId, amount }: Props) => {
-  const categoriesQuery = useQuery(["categories"], listCategories);
-  const categoriesList = categoriesQuery?.data?.data ?? null;
-
-  const categoriesOptions = categoriesList?.map((category) => {
-    return {
-      value: category.id,
-      label: category.name,
-    };
-  });
   return (
     <Flex
       borderBottom="solid 1px"

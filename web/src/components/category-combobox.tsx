@@ -42,6 +42,9 @@ const CategoryCombobox = ({ initialSelectedId }: Props) => {
       setItems(categoriesList);
     },
     defaultHighlightedIndex: 0,
+    onSelectedItemChange(changes: UseComboboxStateChange<Category>) {
+      console.log(changes);
+    },
   });
 
   useEffect(() => {
