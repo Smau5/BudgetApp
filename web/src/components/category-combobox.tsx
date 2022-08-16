@@ -4,11 +4,14 @@ import { Category } from "../http/dto/category";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useCombobox, UseComboboxStateChange } from "downshift";
 import { Box, Input, Text, useDimensions } from "@chakra-ui/react";
+import { Simulate } from "react-dom/test-utils";
+import change = Simulate.change;
 
 interface Props {
   initialSelectedId?: string;
+  onChange?: (value: string) => void;
 }
-const CategoryCombobox = ({ initialSelectedId }: Props) => {
+const CategoryCombobox = ({ initialSelectedId, onChange }: Props) => {
   const categoriesQuery = useQuery(["categories"], listCategories);
   const categoriesList = categoriesQuery?.data?.data ?? [];
   const [items, setItems] = useState(categoriesList ?? []);
@@ -43,7 +46,9 @@ const CategoryCombobox = ({ initialSelectedId }: Props) => {
     },
     defaultHighlightedIndex: 0,
     onSelectedItemChange(changes: UseComboboxStateChange<Category>) {
-      console.log(changes);
+      if (changes.selectedItem?.id && onChange) {
+        onChange(changes.selectedItem.id);
+      }
     },
   });
 
@@ -75,6 +80,7 @@ const CategoryCombobox = ({ initialSelectedId }: Props) => {
           onFocus={(event) => {
             event.target.select();
           }}
+          placeholder="Seleccionar categoría"
           {...getInputProps()}
         />
       </Box>

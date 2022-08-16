@@ -7,17 +7,21 @@ import listTransactions from "../../http/accounts/transactions/list";
 import TransactionRow from "../../components/transaction-row";
 import getAccount from "../../http/accounts/get";
 import { IoAddOutline } from "react-icons/io5";
+import { useState } from "react";
+import AddTransaction from "../../components/add-transaction";
 
 const AccountsId: NextPage = () => {
   const router = useRouter();
   const { id } = router.query;
+  const accountId = id as string;
   const getAccountQuery = useQuery(
-    ["account", id],
+    ["accounts", id],
     async () => {
       return getAccount(id as string);
     },
     {
-      enabled: !!id,
+      enabled: !!accountId,
+      staleTime: 0,
     }
   );
   const listTransactionsQuery = useQuery(
@@ -26,13 +30,19 @@ const AccountsId: NextPage = () => {
       return listTransactions(id as string);
     },
     {
-      enabled: !!id,
+      enabled: !!accountId,
+      staleTime: 0,
     }
   );
   const transactionsList = listTransactionsQuery.data?.data ?? null;
   const account = getAccountQuery.data?.data ?? null;
 
+  const [addStateTransaction, setAddStateTransaction] = useState(false);
+
   const displayTransactionsList = transactionsList?.map((transaction) => {
+    if (listTransactionsQuery.fetchStatus == "fetching") {
+      return <></>;
+    }
     return (
       <TransactionRow
         id={transaction.id}
@@ -43,6 +53,13 @@ const AccountsId: NextPage = () => {
       />
     );
   }) ?? <></>;
+
+  const onClick = () => {
+    setAddStateTransaction((prev) => {
+      return !prev;
+    });
+  };
+
   return (
     <>
       <Box
@@ -60,6 +77,7 @@ const AccountsId: NextPage = () => {
             leftIcon={<IoAddOutline size={"20px"} />}
             variant="ghost"
             size={"sm"}
+            onClick={onClick}
           >
             Agregar
           </Button>
@@ -82,7 +100,14 @@ const AccountsId: NextPage = () => {
           <Text>Monto</Text>
         </Box>
       </Flex>
-      {displayTransactionsList}
+      {addStateTransaction && (
+        <AddTransaction
+          onCancel={() => setAddStateTransaction(false)}
+          accountId={accountId}
+        />
+      )}
+      {listTransactionsQuery.fetchStatus != "fetching" &&
+        displayTransactionsList}
     </>
   );
 };

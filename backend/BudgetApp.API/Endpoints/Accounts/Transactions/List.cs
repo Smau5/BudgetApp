@@ -38,7 +38,7 @@ public class List : EndpointBaseAsync.WithRequest<int>.WithActionResult<List<Tra
         }
 
         var transactions = _appDbContext.Transactions.Where(t => t.BudgetId == budget.Id && t.AccountId == accountId)
-            .OrderBy(t => t.DateTime).ToList();
+            .OrderByDescending(t => t.DateTime).ToList();
 
         var response = _mapper.Map<List<TransactionDto>>(transactions);
 

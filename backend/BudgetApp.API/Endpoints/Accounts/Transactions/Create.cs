@@ -38,7 +38,8 @@ public class Create : EndpointBaseAsync.WithRequest<CreateTransactionsRequest>.W
         }
 
         var newTransaction =
-            new Transaction(request.CreateTransactionsRequestBody.Amount, DateTime.UtcNow, budget.Id, request.AccountId,
+            new Transaction(request.CreateTransactionsRequestBody.Amount, request.CreateTransactionsRequestBody.Date,
+                budget.Id, request.AccountId,
                 request.CreateTransactionsRequestBody.CategoryId);
 
         _transactionRepository.Add(newTransaction);
