@@ -5,16 +5,15 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useCombobox, UseComboboxStateChange } from "downshift";
 import { Box, Input, Text, useDimensions } from "@chakra-ui/react";
 import { Simulate } from "react-dom/test-utils";
-import change = Simulate.change;
 
 interface Props {
   initialSelectedId?: string;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | null) => void;
 }
 const CategoryCombobox = ({ initialSelectedId, onChange }: Props) => {
   const categoriesQuery = useQuery(["categories"], listCategories);
   const categoriesList = categoriesQuery?.data?.data ?? [];
-  const [items, setItems] = useState(categoriesList ?? []);
+  const [items, setItems] = useState(categoriesList);
   const elementRef = useRef(null);
   const dimensions = useDimensions(elementRef, true);
   const {
@@ -30,7 +29,7 @@ const CategoryCombobox = ({ initialSelectedId, onChange }: Props) => {
     openMenu,
     selectItem,
     setInputValue,
-  } = useCombobox({
+  } = useCombobox<Category | null>({
     onInputValueChange({ inputValue }) {
       setItems(categoriesList.filter(getCategoryFilter(inputValue)));
     },
@@ -38,16 +37,20 @@ const CategoryCombobox = ({ initialSelectedId, onChange }: Props) => {
     itemToString(item) {
       return item ? item.name : "";
     },
-    onIsOpenChange(changes: UseComboboxStateChange<Category>) {
+    onIsOpenChange(changes) {
       if (changes.type === "__input_blur__") {
-        setInputValue(changes.selectedItem?.name ?? "");
+        if (changes.inputValue == "") {
+          selectItem(null);
+        } else {
+          selectItem(changes.selectedItem ?? null);
+        }
       }
       setItems(categoriesList);
     },
     defaultHighlightedIndex: 0,
-    onSelectedItemChange(changes: UseComboboxStateChange<Category>) {
-      if (changes.selectedItem?.id && onChange) {
-        onChange(changes.selectedItem.id);
+    onSelectedItemChange(changes) {
+      if (onChange) {
+        onChange(changes.selectedItem?.id ?? null);
       }
     },
   });

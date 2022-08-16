@@ -9,7 +9,7 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 20,
+      // staleTime: 1000 * 20,
     },
   },
 });

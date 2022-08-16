@@ -11,8 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 type FormData = {
   date: Date;
-  amount: number;
-  categoryId: string;
+  amount?: number;
+  categoryId?: string;
 };
 const schema = yup
   .object({
@@ -28,6 +28,12 @@ interface Props {
 
 const AddTransaction = ({ onCancel, accountId }: Props) => {
   const queryClient = useQueryClient();
+  const { control, handleSubmit, register, reset } = useForm<FormData>({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      date: new Date(),
+    },
+  });
   const addTransactionMutation = useMutation(
     (data: CreateTransaction) => {
       return createTransaction(data);
@@ -36,21 +42,15 @@ const AddTransaction = ({ onCancel, accountId }: Props) => {
       onSuccess: (_, variables) => {
         queryClient.invalidateQueries(["transactions", variables.accountId]);
         queryClient.invalidateQueries(["accounts"]);
+        reset();
       },
     }
   );
-  const { control, handleSubmit, register } = useForm<FormData>({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      date: new Date(),
-      amount: 0,
-    },
-  });
   const onSubmit = async (data: FormData) => {
     addTransactionMutation.mutate({
       accountId: accountId,
-      amount: data.amount,
-      categoryId: data.categoryId,
+      amount: data.amount!,
+      categoryId: data.categoryId!,
       date: data.date,
     });
   };
